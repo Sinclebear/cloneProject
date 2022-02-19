@@ -9,7 +9,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  rate: {
+  home_rate: {
     type: Number,
     default: "",    
   },
@@ -18,8 +18,8 @@ const commentSchema = new mongoose.Schema({
     default: "",    
   },
   date: {
-    type: Date
-    default: "",    
+    type: Date,
+    default: "",
   }
 });
 
