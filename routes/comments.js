@@ -17,7 +17,7 @@ router.post('/comment/save/write', authmiddlewares, async (req, res) => {
 });
 
 //후기 수정
-router.patch('/comment/:commentId', authmiddlewares, (async, res) => {
+router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {commentId} =req.params;
     const {comment, home_rate} = req.body;
 
