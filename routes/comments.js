@@ -23,7 +23,7 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
 
     await Comments.findByIdAndUpdate({_id: commentId}, {comment, home_rate});
     res.send({
-
+        success: '후기 수정이 완료되었습니다.'
     });
 });
 
