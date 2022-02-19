@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const users = require('../schemas/userSchema');
+const users = require('../models/userSchema');
 const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
