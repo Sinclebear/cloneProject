@@ -16,6 +16,8 @@ const requestMiddlware = (req, res, next) => {
   next();
 };
 
+connect()
+
 // jwt.verify(tokenValue, process.env.JWT_SECRET);
 
 app.use(cors());
