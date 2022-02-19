@@ -4,7 +4,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
     const {authorization} = req.headers;
-    // console.log(authorization);
+    // console.log('authorization', authorization);
     if (!authorization){
         res.send({
             ok: false,
@@ -23,12 +23,11 @@ module.exports = (req, res, next) => {
         return;
     }
 
-    try {
-        const {userId} = jwt.verify(tokenValue, `${jwtSecret}`);
-        console.log('userId:', userId);
-        users.findById(userId).exec().then((user) => {
+    try {        
+        const {user_id} = jwt.verify(tokenValue, `${jwtSecret}`);
+        users.findOne({user_id}).exec().then((user) => {        
             res.locals.user = user;
-            console.log(res.locals.user);
+            // console.log(res.locals.user);
             next();
         });
     } catch (error) {
