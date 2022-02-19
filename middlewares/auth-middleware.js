@@ -12,6 +12,7 @@ module.exports = (req, res, next) => {
             headers: req.headers
         })
         return
+        //aaa
     }
     const [tokenType, tokenValue] = authorization.split(' ');
     
