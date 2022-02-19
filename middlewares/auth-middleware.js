@@ -4,7 +4,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
     const {authorization} = req.headers;
-    // console.log(authorization);
+    // console.log('authorization', authorization);
     if (!authorization){
         res.send({
             ok: false,
@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
         console.log('userId:', userId);
         users.findOne({user_id:user_id}).exec().then((user) => {
             res.locals.user = user;
-            console.log(res.locals.user);
+            // console.log(res.locals.user);
             next();
         });
     } catch (error) {
