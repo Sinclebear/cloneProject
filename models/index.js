@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const connect = () => {
-  mongoose.connect("mongodb://test:test@54.180.81.174:27017/airbnb_clone?authSource=admin", {
+  mongoose.connect("mongodb://test:test@54.180.81.174:27017/airbnb_clonedb?authSource=admin", {
+  // mongoose.connect("mongodb://localhost/cloneProj", {  
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

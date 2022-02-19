@@ -22,9 +22,10 @@ connect()
 
 app.use(cors());
 app.use(requestMiddlware);
-app.use('/api', [booking_router, comments_router, users_router]);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api', [booking_router, comments_router, users_router]);
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}에 접속되었습니다.`);
