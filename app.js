@@ -11,7 +11,7 @@ const port = 3000;
 const booking_router = require('./routes/booking');
 const comments_router = require('./routes/comments');
 const users_router = require('./routes/users');
-const main_router = require('./routes/homes');
+const home_router = require('./routes/homes');
 
 
 const requestMiddlware = (req, res, next) => {
@@ -25,10 +25,9 @@ connect()
 
 app.use(cors());
 app.use(requestMiddlware);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', [booking_router, comments_router, users_router, main_router]);
+app.use('/api', [booking_router, comments_router, users_router, home_router]);
 
 
 app.listen(port, () => {

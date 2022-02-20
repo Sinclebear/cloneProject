@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const homeSchema = new mongoose.Schema({
+const homeSchema = mongoose.Schema({
   home_name: {
       type: String,
       default:"",
