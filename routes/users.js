@@ -10,10 +10,12 @@ require('dotenv').config();
 const postUsersSchemas = Joi.object({
   user_id: Joi.string()
     .required()
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    .pattern(new RegExp('^[a-zA-Z0-9가-힣]{4,16}$')),
   user_nick: Joi.string().required().min(4).max(10),
-  user_pwd: Joi.string().required().min(4).max(30),
-  confirmPassword: Joi.string().required().min(4).max(30),
+  user_pwd: Joi.string().required()
+    .pattern(new RegExp('^[a-zA-Z0-9가-힣]{4,16}$')),
+  confirmPassword: Joi.string().required()
+    .pattern(new RegExp('^[a-zA-Z0-9가-힣]{4,16}$')),
 });
 
 // 회원가입구현
@@ -57,8 +59,8 @@ router.post('/signup', async (req, res) => {
 const postAuthSchemas = Joi.object({
   user_id: Joi.string()
     .required()
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-  user_pwd: Joi.string().min(4).max(30),
+    .pattern(new RegExp('^[a-zA-Z0-9]{4,16}$')),
+  user_pwd: Joi.string().min(4).max(16),
 });
 
 // 로그인 구현
