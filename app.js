@@ -12,6 +12,7 @@ const booking_router = require('./routes/booking');
 const comments_router = require('./routes/comments');
 const users_router = require('./routes/users');
 const home_router = require('./routes/homes');
+const likes_router = require('./routes/likes');
 
 
 const requestMiddlware = (req, res, next) => {
@@ -27,7 +28,7 @@ app.use(cors());
 app.use(requestMiddlware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', [booking_router, comments_router, users_router, home_router]);
+app.use('/api', [booking_router, comments_router, users_router, home_router, likes_router]);
 
 
 app.listen(port, () => {
