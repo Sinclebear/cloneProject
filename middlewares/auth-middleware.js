@@ -27,7 +27,7 @@ module.exports = (req, res, next) => {
         
         users.findOne({user_id}).exec().then((user) => {
             res.locals.user = user;
-            // console.log(res.locals.user);
+            console.log(res.locals.user);
             next();
         });
     } catch (error) {
