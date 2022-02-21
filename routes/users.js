@@ -89,10 +89,10 @@ router.post('/login', async (req, res) => {
     // console.log("아디 비번은 맞고");
     
     const token = jwt.sign(
-      { user_id: user.user_id },
+      { user_id: user.user_id, user_nick: user.user_nick },
       process.env.JWT_SECRET
     );
-    // console.log(token);
+    // console.log("토큰 내부값은?", token);
     res.send({
       token,
     });
