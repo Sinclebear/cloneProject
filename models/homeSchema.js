@@ -18,8 +18,7 @@ const homeSchema = mongoose.Schema({
     default:"",
   },
   image_url: {
-    type: String,
-    default:"",
+    type: [String], // string array 형태이므로 변경. default도 뺌.
   },
   introduce: {
     type: String,
