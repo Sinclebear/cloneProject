@@ -110,6 +110,7 @@ router.get('/auth', authMiddlleware, async (req, res) => {
   res.send({
     user: {
       user_id: user.user_id,
+      user_nick: user.user_nick
     },
   });
 });
