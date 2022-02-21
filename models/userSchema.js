@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     user_nick: {
         type: String,        
         default: "",
+    },
+    host_cert: {
+        type: Boolean,
+        defaul: false
     }
 });
 
