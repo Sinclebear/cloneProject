@@ -7,10 +7,8 @@ const authmiddlewares = require('../middlewares/auth-middleware');
 
 //호스트 등록
 router.post('/host/regist', authmiddlewares, async (req, res) => {
-    console.log(res.locals.user.host_cert);
     const {user_id} = res.locals.user;
-    console.log(user_id);
-    
+        
     if(res.locals.user.host_cert === true) {
         res.send({                      
             fail: "이미 호스트로 등록되어있는 계정입니다."
