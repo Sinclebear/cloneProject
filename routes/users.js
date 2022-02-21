@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
       });
       return;
     }
-    const user = new User({ user_id, user_pwd, user_nick });
+    const user = new User({ user_id, user_pwd, user_nick, host_cert: false });
     await user.save();
 
     res.status(201).send({});

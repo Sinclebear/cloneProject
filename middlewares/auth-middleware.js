@@ -4,7 +4,7 @@ const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
     const {authorization} = req.headers;
-    // console.log('authorization', authorization);
+    console.log('authorization', authorization);
     if (!authorization){
         res.send({
             ok: false,
@@ -14,17 +14,17 @@ module.exports = (req, res, next) => {
         return
     }
     const [tokenType, tokenValue] = authorization.split(' ');
-    
-    // console.log(tokenValue);
+    console.log(tokenValue);
+    console.log(tokenType);
     if (tokenType !== 'Bearer') {
         res.status(401).send({
             errorMessage: '로그인 후 사용하세요',
         });
         return;
     }
-
     try {
-        const {user_id} = jwt.verify(tokenValue, `${jwtSecret}`);        
+        const {user_id} = jwt.verify(tokenValue, `${jwtSecret}`);
+        
         users.findOne({user_id}).exec().then((user) => {
             res.locals.user = user;
             // console.log(res.locals.user);
