@@ -5,7 +5,7 @@ const Users = require('../models/userSchema');
 const authmiddlewares = require('../middlewares/auth-middleware');
 
 //호스트 등록
-router.post('/host/regist', authmiddlewares, async (req, res) => {
+router.put('/host/regist', authmiddlewares, async (req, res) => {
     const {user_id} = res.locals.user;
         
     if(res.locals.user.host_cert === true) {
@@ -21,7 +21,7 @@ router.post('/host/regist', authmiddlewares, async (req, res) => {
 });
 
 //호스트 해제
-router.post('/host/delete', authmiddlewares, async (req, res) => {
+router.put('/host/delete', authmiddlewares, async (req, res) => {
     const {user_id} = res.locals.user;
         
     if(res.locals.user.host_cert === false) {
