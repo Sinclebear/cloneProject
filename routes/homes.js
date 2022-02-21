@@ -4,17 +4,10 @@ require('dotenv').config();
 const Homes = require('../models/homeSchema');
 const authmiddlewares = require('../middlewares/auth-middleware');
 
+//메인페이지 카테고리별 DB 공급
 router.get("/homes", async (req, res) => {
-  // console.log("음메");
-  const homes = await Homes.find().exec();
-  // console.log("냐옹");
-  res.send({ homes });
-  console.log('숙소 목록을 보냈습니다.')
-});
-
-
-router.get("/homes/?category=%category%", async (req, res) => {
-  const received_categori = req.params;
+  const received_categori = req.query.category;
+  console.log(received_categori);
 
   const homes = await Homes.find({"category": received_categori}).exec();
   
@@ -26,7 +19,7 @@ router.get("/homes/:homes_id", async (req, res) => {
   const homes_id = req.params;
 
   // const homes = await Homes.find({"_id": homes_id}).exec();
-  const homes = await Homes.findById(req.params.homes_id);
+  const homes = await Homes.findById(req.params);
   
   res.send({ homes });
   console.log('해당 숙소의 상세페이지를 보냈습니다.')
