@@ -5,13 +5,21 @@ const homeSchema = mongoose.Schema({
       type: String,
       default:"",
   }, 
-  rateAvg: {
+  host_name: {
+    type: String,
+    default:"",
+  }, 
+  category: {
     type: String,
     default:"",
   },
-  review: {
-    type: String,
-    default:"",
+  rateAvg: {
+    type: Number,
+    default:0,
+  },
+  comment_count: {
+    type: Number,
+    default:0,
   },
   address: {
     type: String,
@@ -26,8 +34,19 @@ const homeSchema = mongoose.Schema({
   },
   price: {
     type: Number,
+    default:0,
+  },
+  convenience: {
+    type: [String], // string array 형태이므로 변경. default도 뺌.
+  },
+  distance: {
+    type: Number,
+    default:0,
+  },
+  availableDate: {
+    type: String,
     default:"",
-  }  
+  }
 });
 
 homeSchema.virtual("HomesId").get(function () {
