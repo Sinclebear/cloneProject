@@ -12,7 +12,8 @@ router.get("/homes", authmiddlewares, async (req, res) => {
   const received_categori = req.query.category;
   console.log(received_categori);
 
-  const homes = await Homes.find({"category": received_categori}).exec();
+  const homes = await Homes.find({"category": received_categori}, {availableDate: true}).exec();
+  // const homes = await Homes.find({"category": received_categori}, {_id: 1, category: 1, address: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
   // console.log(homes)
   // console.log(typeof(homes))
 
@@ -43,6 +44,14 @@ router.get("/homes", authmiddlewares, async (req, res) => {
   res.send({ homes });
   console.log('카테고리별 숙소 목록을 보냈습니다.')
 });
+
+// - 숙소ID `HomesId` String
+// - 집 종류 `category` String
+// - 숙소 주소 `address` String
+// - 이미지URL `image_url[]` Array [String]
+// - 1박당 비용 `price` Number
+// - 내가 위치한 곳 기준 거리 `distance` Number
+// - 숙박 가능 기간 `availableDate` String
 
 router.get("/homes/:homes_id", async (req, res) => {
   const { homes_id }  = req.params;
