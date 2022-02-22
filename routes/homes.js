@@ -92,7 +92,7 @@ router.post('/hosting', authmiddlewares, async (req, res) => {
   console.log(availableDate);
   const {home_name, category, address, image_url, introduce, price} = req.body;
   
-  await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate, host_name: res.locals.user.user_id , createdAt: new Date(), updatedAt: new Date()});
+  await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate, host_name: res.locals.user.user_id});
   
   res.send({
       success: '숙소 등록이 완료되었습니다.'
