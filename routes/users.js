@@ -115,4 +115,51 @@ router.get('/auth', authMiddlleware, async (req, res) => {
   });
 });
 
+router.post('/signup/checkid', async (req, res) => {
+  // console.log("아이디 중복체크 api시작");
+  const input_id = req.body.user_id;
+  // console.log("input_id값은  ", input_id);
+  
+  const existUsers = await User.find({ user_id: input_id });
+
+  // console.log("existUser: ", existUsers[0].user_id);
+  // console.log("existUser: ", existUsers);
+  
+  if (existUsers.length) {
+      res.send({
+        success: '이미 가입된 아이디입니다.',
+      });
+      return;
+    }
+    
+    res.send({ 
+      fail:"사용가능한 아이디입니다.", 
+    });
+  } 
+);
+
+router.post('/signup/checknick', async (req, res) => {
+  // console.log("닉네임 중복체크 api시작");
+  const input_nick = req.body.user_nick;
+  // console.log("input_nick값은  ", input_nick);
+  
+  const existUsers = await User.find({ user_nick: input_nick });
+
+  // console.log("existUser: ", existUsers[0].user_nick);
+  // console.log("existUser: ", existUsers);
+  
+  if (existUsers.length) {
+      res.send({
+        success: '이미 사용중인 닉네임입니다.',
+      });
+      return;
+    }
+    
+    res.send({ 
+      fail:"사용가능한 닉네임입니다." 
+    });
+  } 
+);
+
+
 module.exports = router;
