@@ -15,15 +15,11 @@ function getRandomInt(min, max) {
 
 //메인페이지 카테고리별 DB 공급
 router.get("/homes", authmiddlewares, async (req, res) => {
-  const received_categori = req.query.category;
+  const received_categori = req.query.category; 
   console.log(received_categori);
 
-  const homes = await Homes.find({"category": received_categori}).exec();
-  // const homes = await Homes.find({"category": received_categori}, {availableDate: true}).exec();
-  // const homes = await Homes.find({"category": received_categori}, {_id: 1, category: 1, address: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
-  // console.log(homes)
-  // console.log(typeof(homes))
-
+  const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
+  
   let isLike = new Array()
 
   if (res.locals.user){ // 로그인 정보가 있는 경우

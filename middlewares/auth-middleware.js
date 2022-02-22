@@ -3,6 +3,7 @@ const users = require('../models/userSchema');
 const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
+    console.log(req.headers)
     const {authorization} = req.headers;
     console.log('authorization', authorization);
     if (!authorization){
@@ -22,7 +23,7 @@ module.exports = (req, res, next) => {
         return;
     }
 
-    if (!tokenValue) { // 비회원인 경우, res.locals.user 를 빈값으로 설정해 전달.
+    if (tokenValue === 'null') { // 비회원인 경우, res.locals.user 를 빈값으로 설정해 전달.
         res.locals.user = ''
         next();
         return;
