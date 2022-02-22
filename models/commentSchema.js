@@ -16,11 +16,7 @@ const commentSchema = new mongoose.Schema({
   home_name: {
     type: String,
     default: "",    
-  },
-  date: {
-    type: Date,
-    default: "",
-  },
+  },  
   home_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Homes"
