@@ -103,7 +103,7 @@ router.get('/auth', authMiddlleware, async (req, res) => {
   const { user } = res.locals;
   if (user) {
     res.send({
-      success: success,
+      success: "success",
 
       user: {
         user_id: user.user_id,
