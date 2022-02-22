@@ -85,7 +85,11 @@ router.post('/login', async (req, res) => {
     // console.log("토큰 내부값은?", token);
     res.send({
       token,
-    });
+
+      user: {
+        user_id: user.user_id,
+        user_nick: user.user_nick
+    }});
   } catch (error) {
     // console.log(error);
     res.send({
@@ -129,13 +133,13 @@ router.post('/signup/checkid', async (req, res) => {
 
   if (existUsers.length) {
     res.send({
-      success: '이미 가입된 아이디입니다.',
+      msg: '이미 가입된 아이디입니다.',
     });
     return;
   }
 
   res.send({
-    fail: "사용가능한 아이디입니다.",
+    msg: "사용가능한 아이디입니다.",
   });
 }
 );
@@ -152,13 +156,13 @@ router.post('/signup/checknick', async (req, res) => {
 
   if (existUsers.length) {
     res.send({
-      success: '이미 사용중인 닉네임입니다.',
+      msg: '이미 사용중인 닉네임입니다.',
     });
     return;
   }
 
   res.send({
-    fail: "사용가능한 닉네임입니다."
+    msg: "사용가능한 닉네임입니다."
   });
 }
 );
