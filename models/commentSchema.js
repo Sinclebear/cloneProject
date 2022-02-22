@@ -25,7 +25,9 @@ const commentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Homes"
   }
-});
+},
+{ timestamps: true }
+);
 
 commentSchema.virtual("CommentsId").get(function () {
   return this._id.toHexString();
