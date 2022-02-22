@@ -8,7 +8,7 @@ const Homes = require('../models/homeSchema');
 router.get('/comment/:homeId', async (req, res) => {
     const {homeId} = req.params;
 
-    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', '_id', 'comment').exec();    
+    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', 'id comment_count').exec();
     
     res.json({
         comment_list: comment_list
@@ -19,11 +19,12 @@ router.get('/comment/:homeId', async (req, res) => {
 //후기 작성
 router.post('/comment/save/write/:homeId', authmiddlewares, async (req, res) => {
     const { user } = res.locals;
-    console.log(user);
+    const { homeId } = req.params;
+    // console.log(user);
     const {comment, home_rate, home_name} = req.body;
     
-    await Comments.create({user_nick: user.user_nick, comment, home_rate, home_name, home_id: req.params.homeId, createdAt: new Date()});
-    await Homes.findByIdAndUpdate();
+    await Comments.create({user_nick: user.user_nick, comment, home_rate, home_name, home_id: homeId});
+    await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: 1 } });
 
     res.send({
         success: '후기 작성이 완료되었습니다.'
@@ -45,7 +46,9 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
 //후기 삭제
 router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {commentId} = req.params;
+    
     await Comments.deleteOne({_id: commentId});
+    // await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
     res.send({
         success: '후기 삭제가 완료되었습니다.'
     });
