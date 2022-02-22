@@ -8,7 +8,7 @@ const Homes = require('../models/homeSchema');
 router.get('/comment/:homeId', async (req, res) => {
     const {homeId} = req.params;
 
-    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', '_id').exec();    
+    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', '_id', 'comment').exec();    
     
     res.json({
         comment_list: comment_list
@@ -23,6 +23,7 @@ router.post('/comment/save/write/:homeId', authmiddlewares, async (req, res) => 
     const {comment, home_rate, home_name} = req.body;
     
     await Comments.create({user_nick: user.user_nick, comment, home_rate, home_name, home_id: req.params.homeId, createdAt: new Date()});
+    await Homes.findByIdAndUpdate();
 
     res.send({
         success: '후기 작성이 완료되었습니다.'
