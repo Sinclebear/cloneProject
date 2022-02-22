@@ -3,17 +3,44 @@ const router = express.Router();
 require('dotenv').config();
 const Homes = require('../models/homeSchema');
 const authmiddlewares = require('../middlewares/auth-middleware');
+const Likes = require('../models/likeSchema'); // added
 
 
 
 //메인페이지 카테고리별 DB 공급
-router.get("/homes", async (req, res) => {
+router.get("/homes", authmiddlewares, async (req, res) => {
   const received_categori = req.query.category;
   console.log(received_categori);
 
-  const homes = await Homes.find({"category": received_categori}, {_id: 1, category: 1, address: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
-  // const homes = await Homes.find({"category": received_categori}, {availableDate: true}).exec();
-  
+  const homes = await Homes.find({"category": received_categori}, {availableDate: true}).exec();
+  // const homes = await Homes.find({"category": received_categori}, {_id: 1, category: 1, address: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
+  // console.log(homes)
+  // console.log(typeof(homes))
+
+  let isLike = new Array()
+
+  if (res.locals.user){ // 로그인 정보가 있는 경우
+    const { user } = res.locals;
+    isLike = await Likes.find({user_id:user.user_id}).exec();
+    console.log(isLike)
+    console.log(typeof(isLike))
+    homes.map((home) => {
+      // isLike 배열에 들어있는 e.home_id 와 현재 map 연산 중인 home._id 를 비교하여 일치하는 경우
+      if (isLike.filter(e => e.home_id === home.HomesId).length > 0){
+        // isLike 배열에 들어있는 e.user_id와 로그인한 유저 user.user_id 가 일치하는 경우
+        if (isLike.filter(e => e.user_id === user.user_id).length > 0){ 
+          home._doc.isLike = true;
+        }
+      } else { // 비회원
+        home._doc.isLike = false;
+      }
+    })
+  } else { // 로그인 정보가 없는 경우. res.locals.user = '' 로 보내므로, 값이 없음.
+    homes.map((home) => {
+      home._doc.isLike = false; 
+    })
+  }
+
   res.send({ homes });
   console.log('카테고리별 숙소 목록을 보냈습니다.')
 });
