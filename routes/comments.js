@@ -8,7 +8,7 @@ const Homes = require('../models/homeSchema');
 router.get('/comment/:homeId', async (req, res) => {
     const {homeId} = req.params;
 
-    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', '_id').exec();
+    const comment_list = await Comments.find({home_id: homeId}).populate('home_id', '_id', 'comment_count').exec();
     
     res.json({
         comment_list: comment_list
