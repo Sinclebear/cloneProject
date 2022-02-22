@@ -5,6 +5,12 @@ const Homes = require('../models/homeSchema');
 const authmiddlewares = require('../middlewares/auth-middleware');
 const Likes = require('../models/likeSchema'); // added
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}
+
 
 
 //메인페이지 카테고리별 DB 공급
@@ -77,8 +83,11 @@ router.post('/hosting', authmiddlewares, async (req, res) => {
     });
     return;
   }  
-
-  const {home_name, category, address, image_url, introduce, price, convenience, distance, availableDate} = req.body;
+ 
+  const convenience = ['온수', '여분의 베개와 담요', 'TV', '유아용 식탁의자', '반려 동물 입실 가능', '주방', '기본 조리 도구', '식기류', '단층 주택', '자전거'];
+  const distance = getRandomInt(1, 10000);
+  const availableDate = "07월 1일 ~ 8일"
+  const {home_name, category, address, image_url, introduce, price} = req.body;
   
   await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate, host_name: res.locals.user.user_id , createdAt: new Date(), updatedAt: new Date()});
   
