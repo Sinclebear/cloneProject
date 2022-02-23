@@ -59,10 +59,10 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     const { homeId } = req.body;
     const { user } = res.locals;
 
-    console.log('user', user);
+    console.log('user_nick', user.user_nick);
     console.log('commentId', commentId);
 
-    const existUsers = await Comments.findById({_id: commentId});    
+    const existUsers = await Comments.findById({_id: commentId});
     console.log(existUsers);
     
     // if (existUsers.user_nick !== user.user_nick) {
