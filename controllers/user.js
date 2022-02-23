@@ -21,7 +21,7 @@ const user = {
     
     let image_url = [];
 
-    for(let i = 0 ; i<5 ; i++){
+    for(let i = 0 ; i<req.files.length ; i++){
       console.log("location : ", req.files[i].location);
 
       image_url[i] = req.files[i].location;
