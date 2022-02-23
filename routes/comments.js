@@ -60,8 +60,8 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     const { user } = res.locals;
 
     const existUsers = await Comments.findById({_id: commentId});    
-    console.log(existUsers.user_nick);
-    console.log(user.user_nick);
+    console.log(existUsers);
+    console.log(user);
     // if (existUsers.user_nick !== user.user_nick) {
     //     res.send({
     //         fail: '후기를 작성한 사용자가 아닙니다.'
