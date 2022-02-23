@@ -3,7 +3,6 @@ const router = express.Router();
 const authmiddlewares = require('../middlewares/auth-middleware');
 const Comments = require('../models/commentSchema');
 const Homes = require('../models/homeSchema');
-const Users = require('../models/userSchema');
 
 //후기 목록 전달
 router.get('/comment/:homeId', async (req, res) => {
