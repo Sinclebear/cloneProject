@@ -39,7 +39,6 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const { user } = res.locals;
     
     const existUsers = await Comments.findById({_id: commentId});
-    console.log(existUsers);
     console.log(existUsers.user_nick);
     console.log(user.user_nick);
     
