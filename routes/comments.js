@@ -72,7 +72,7 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     //     return;
     // }
     
-    await Comments.deleteOne({_id: commentId});
+    // await Comments.deleteOne({_id: commentId});
     // await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
     res.send({
         success: '후기 삭제가 완료되었습니다.'
