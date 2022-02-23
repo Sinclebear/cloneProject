@@ -40,7 +40,7 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const existUsers = await Comments.findById({_id: commentId});
     console.log(existUsers);
     console.log(existUsers.user_nick);
-    console.log(res.locals.user.user_nick);
+    console.log(res.locals.user);
     // if (existUsers.user_nick !== res.locals.user.user_nick) {
     //     res.send({
     //         faile: '후기를 작성한 사용자가 아닙니다.'
