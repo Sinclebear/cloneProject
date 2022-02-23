@@ -63,7 +63,7 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     console.log('commentId', commentId);
 
     const existUsers = await Comments.findById({_id: commentId});
-    console.log(existUsers);
+    console.log(existUsers.user_nick);
     
     // if (existUsers.user_nick !== user.user_nick) {
     //     res.send({
@@ -73,7 +73,7 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     // }
     
     await Comments.deleteOne({_id: commentId});
-    await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
+    // await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
     res.send({
         success: '후기 삭제가 완료되었습니다.'
     });
