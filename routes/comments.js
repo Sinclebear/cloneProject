@@ -38,10 +38,7 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {comment, home_rate} = req.body;
     const { user } = res.locals;
     
-    const existUsers = await Comments.findById({_id: commentId});
-    console.log(existUsers.user_nick);
-    console.log(user.user_nick);
-    
+    const existUsers = await Comments.findById({_id: commentId});   
     if (existUsers.user_nick !== user.user_nick) {
         res.send({
             fail: '후기를 작성한 사용자가 아닙니다.'
@@ -63,12 +60,14 @@ router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     const { user } = res.locals;
 
     const existUsers = await Comments.findById({_id: commentId});    
-    if (existUsers.user_nick !== user.user_nick) {
-        res.send({
-            fail: '후기를 작성한 사용자가 아닙니다.'
-        });
-        return;
-    }
+    console.log(existUsers.user_nick);
+    console.log(user.user_nick);
+    // if (existUsers.user_nick !== user.user_nick) {
+    //     res.send({
+    //         fail: '후기를 작성한 사용자가 아닙니다.'
+    //     });
+    //     return;
+    // }
     
     await Comments.deleteOne({_id: commentId});
     await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
