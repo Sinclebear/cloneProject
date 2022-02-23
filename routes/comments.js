@@ -36,11 +36,12 @@ router.post('/comment/save/write/:homeId', authmiddlewares, async (req, res) => 
 router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {commentId} =req.params;
     const {comment, home_rate} = req.body;
+    const { user } = res.locals;
     
     const existUsers = await Comments.findById({_id: commentId});
     console.log(existUsers);
     console.log(existUsers.user_nick);
-    console.log(res.locals.user);
+    console.log(user);
     // if (existUsers.user_nick !== res.locals.user.user_nick) {
     //     res.send({
     //         faile: '후기를 작성한 사용자가 아닙니다.'
