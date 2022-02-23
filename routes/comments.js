@@ -3,6 +3,7 @@ const router = express.Router();
 const authmiddlewares = require('../middlewares/auth-middleware');
 const Comments = require('../models/commentSchema');
 const Homes = require('../models/homeSchema');
+const Users = require('../models/userSchema');
 
 //후기 목록 전달
 router.get('/comment/:homeId', async (req, res) => {
@@ -35,7 +36,16 @@ router.post('/comment/save/write/:homeId', authmiddlewares, async (req, res) => 
 router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {commentId} =req.params;
     const {comment, home_rate} = req.body;
-
+    
+    const existUsers = await Comments.findById({_id: commentId});
+    console.log(existUsers);
+    if (existUsers.user_nick !== res.locals.user.user_nick) {
+        res.send({
+            faile: '후기를 작성한 사용자가 아닙니다.'
+        });
+        return;
+    }
+    
     await Comments.findByIdAndUpdate({_id: commentId}, {comment, home_rate});
     res.send({
         success: '후기 수정이 완료되었습니다.'
@@ -47,6 +57,14 @@ router.patch('/comment/:commentId', authmiddlewares, async (req, res) => {
 router.delete('/comment/:commentId', authmiddlewares, async (req, res) => {
     const {commentId} = req.params;
     const { homeId } = req.body;
+
+    const existUsers = await Comments.findById({_id: commentId});
+    if (existUsers.user_nick !== res.locals.user.user_nick) {
+        res.send({
+            faile: '후기를 작성한 사용자가 아닙니다.'
+        });
+        return;
+    }
     
     await Comments.deleteOne({_id: commentId});
     await Homes.findByIdAndUpdate({ _id: homeId }, { $inc: { comment_count: -1 } });
