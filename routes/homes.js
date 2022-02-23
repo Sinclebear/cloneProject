@@ -69,16 +69,18 @@ router.get("/homes/:homes_id", async (req, res) => {
 
 
 //숙소 등록
-router.post('/hosting', authmiddlewares, async (req, res) => {
-  const { host_cert } = res.locals.user
+router.post('/hosting', async (req, res) => {
+  console.log('req', req);
+  console.log('req.body', req.body);
+  // const { host_cert } = res.locals.user
   // console.log(host_cert);
 
-  if(host_cert === false) {
-    res.send({
-      fail: '호스트 권한이 없는 계정입니다.'
-    });
-    return;
-  }  
+  // if(host_cert === false) {
+  //   res.send({
+  //     fail: '호스트 권한이 없는 계정입니다.'
+  //   });
+  //   return;
+  // } 
  
   const convenience = ['온수', '여분의 베개와 담요', 'TV', '유아용 식탁의자', '반려 동물 입실 가능', '주방', '기본 조리 도구', '식기류', '단층 주택', '자전거'];
   // console.log(convenience);
@@ -88,7 +90,7 @@ router.post('/hosting', authmiddlewares, async (req, res) => {
   // console.log(availableDate);
   const {home_name, category, address, image_url, introduce, price} = req.body;
   
-  await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate, host_name: res.locals.user.user_id});
+  await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate});
   
   res.send({
       success: '숙소 등록이 완료되었습니다.'

@@ -33,8 +33,8 @@ const homeSchema = mongoose.Schema({
     default:"",
   },
   price: {
-    type: Number,
-    default:0,
+    type: String,
+    default:"0",
   },
   convenience: {
     type: [String], // string array 형태이므로 변경. default도 뺌.
