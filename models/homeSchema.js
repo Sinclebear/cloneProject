@@ -25,6 +25,10 @@ const homeSchema = mongoose.Schema({
     type: String,
     default:"",
   },
+  geolocation: {
+    type: String,
+    default:"",
+  },
   image_url: {
     type: [String], // string array 형태이므로 변경. default도 뺌.
   },
