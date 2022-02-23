@@ -1,4 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const UserController = require('../controllers/user.js');
+const upload = require('../modules/multer');
 const router = express.Router();
 require('dotenv').config();
 const Users = require('../models/userSchema');
@@ -35,5 +38,11 @@ router.put('/host/delete', authmiddlewares, async (req, res) => {
         success: "호스트 해제 성공"
     });
 });
+
+//이미지 저장
+router.post('/imgs', upload.single('image'), UserController.uploadImage, (req, res) => {
+      res.send({});
+    }
+  );
 
 module.exports = router;

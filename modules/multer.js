@@ -4,14 +4,17 @@ const aws = require('aws-sdk');
 aws.config.loadFromPath(__dirname + '/../config/s3.json');
 
 const s3 = new aws.S3();
+
 const upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'jachingam',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read',
         key: function(req, file, cb){
                 cb(null, Date.now() + '.' + file.originalname.split('.').pop()); // 이름 설정
         }
     })
 },'NONE');
+
 module.exports = upload;
