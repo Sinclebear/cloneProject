@@ -18,7 +18,8 @@ router.get("/homes", authmiddlewares, async (req, res) => {
   const received_categori = req.query.category; 
   console.log(received_categori);
 
-  const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, geolocation: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
+  const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, latitude: 1, longitude: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
+  // const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, geolocation: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
   
   let isLike = new Array()
 
