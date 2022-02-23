@@ -3,9 +3,8 @@ const users = require('../models/userSchema');
 const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
-    console.log(req.headers)
+    console.log("/api/auth, current header : ", req.headers)
     const {authorization} = req.headers;
-    console.log('authorization', authorization);
     if (!authorization){
         res.send({
             fail: "authmiddlewares 사용자 인증 실패. 인증 토큰이 비어있습니다. 이하 headers 내용:", 
@@ -14,8 +13,6 @@ module.exports = (req, res, next) => {
         return
     }
     const [tokenType, tokenValue] = authorization.split(' ');
-    console.log(tokenValue);
-    console.log(tokenType);
     if (tokenType !== 'Bearer') {
         res.send({
             fail: '로그인 후 사용하세요.',
@@ -35,7 +32,7 @@ module.exports = (req, res, next) => {
         
         users.findOne({user_id}).exec().then((user) => {
             res.locals.user = user;
-            console.log(res.locals.user);
+            console.log("res.locals.user : ", res.locals.user);
             next();
         });
     } catch (error) {
