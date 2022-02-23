@@ -40,7 +40,7 @@ router.put('/host/delete', authmiddlewares, async (req, res) => {
 });
 
 //이미지 저장
-router.post('/imgs', upload.single('image'), UserController.uploadImage, (req, res) => {
+router.post('/imgs', upload.array('image',5), UserController.uploadImage, (req, res) => {
       res.send({})
     }
   );
