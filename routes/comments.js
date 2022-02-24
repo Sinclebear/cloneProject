@@ -20,7 +20,6 @@ router.get('/comment/:homeId', async (req, res) => {
 router.post('/comment/save/write/:homeId', authmiddlewares, async (req, res) => {
     const { user } = res.locals;
     const { homeId } = req.params;
-    // console.log(user);
     const {comment, home_rate, home_name} = req.body;
     
     await Comments.create({user_nick: user.user_nick, comment, home_rate, home_name, home_id: homeId});
