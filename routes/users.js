@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ user_id, user_pwd }).exec();
     if (!user) {
       res.send({
-        fail: '닉네임 또는 패스워드가 잘못됐습니다.',
+        msg: '닉네임 또는 패스워드가 잘못됐습니다.',
       });
       return;
     }
@@ -86,6 +86,8 @@ router.post('/login', async (req, res) => {
     res.send({
       token,
 
+      msg: "로그인에 성공했습니다.",
+
       user: {
         user_id: user.user_id,
         user_nick: user.user_nick
@@ -93,7 +95,7 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     // console.log(error);
     res.send({
-      fail: '아이디 또는 비밀번호를 확인해주세요.',
+      msg: '아이디 또는 비밀번호를 확인해주세요.',
     });
   }
 });
