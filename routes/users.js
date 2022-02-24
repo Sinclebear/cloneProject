@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
     if (!user) {
       res.send({
         result: false,
-        msg: '닉네임 또는 패스워드가 잘못됐습니다.',
+        msg: '아이디 또는 비밀번호를 확인해주세요.',
       });
       return;
     }
