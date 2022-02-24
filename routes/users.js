@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
   console.log(req.body);
   try {
     const { user_id, user_pwd } = await postAuthSchemas.validateAsync(req.body);
-    const user = await User.findOne({ user_id }).exec();
+    const user = await User.findOne({ user_id, user_pwd }).exec();
     if (!user) {
       res.send({
         fail: '닉네임 또는 패스워드가 잘못됐습니다.',
