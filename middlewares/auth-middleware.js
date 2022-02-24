@@ -3,7 +3,6 @@ const users = require('../models/userSchema');
 const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
-    console.log("/api/auth, current header : ", req.headers)
     const {authorization} = req.headers;
     if (!authorization){
         res.send({
@@ -31,8 +30,7 @@ module.exports = (req, res, next) => {
         const {user_id} = jwt.verify(tokenValue, `${jwtSecret}`);
         
         users.findOne({user_id}).exec().then((user) => {
-            res.locals.user = user;
-            console.log("res.locals.user : ", res.locals.user);
+            res.locals.user = user;           
             next();
         });
     } catch (error) {

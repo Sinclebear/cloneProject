@@ -16,8 +16,7 @@ function getRandomInt(min, max) {
 //메인페이지 카테고리별 DB 공급
 router.get("/homes", authmiddlewares, async (req, res) => {
   const received_categori = req.query.category; 
-  console.log(received_categori);
-
+  
   const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, latitude: 1, longitude: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
   // const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, geolocation: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
 
@@ -26,8 +25,7 @@ router.get("/homes", authmiddlewares, async (req, res) => {
   if (res.locals.user){ // 로그인 정보가 있는 경우
     const { user } = res.locals;
     isLike = await Likes.find({user_id:user.user_id}).exec();
-    // console.log(isLike)
-    // console.log(typeof(isLike))
+    
     homes.map((home) => {
       // isLike 배열에 들어있는 e.home_id 와 현재 map 연산 중인 home._id 를 비교하여 일치하는 경우
       if (isLike.filter(e => e.home_id === home.HomesId).length > 0){
@@ -45,8 +43,7 @@ router.get("/homes", authmiddlewares, async (req, res) => {
     })
   }
 
-  res.send({ homes });
-  console.log('카테고리별 숙소 목록을 보냈습니다.')
+  res.send({ homes });  
 });
 
 // - 숙소ID `HomesId` String
@@ -60,8 +57,7 @@ router.get("/homes", authmiddlewares, async (req, res) => {
 router.get("/homes/:homes_id", authmiddlewares, async (req, res) => {
   const { homes_id }  = req.params;
   const user = res.locals.user;
-  console.log(req.params)
-
+  
   const homes = await Homes.findById(homes_id);
   // const homes = await Homes.find({"_id": homes_id}).exec();
   let isLike = new Array();
@@ -78,15 +74,13 @@ router.get("/homes/:homes_id", authmiddlewares, async (req, res) => {
     homes._doc.isLike = false;
   }
   
-  res.send({ homes });
-  console.log('해당 숙소의 상세페이지를 보냈습니다.')
+  res.send({ homes });  
 });
 
 
 //숙소 등록
 router.post('/hosting', async (req, res) => {
-  console.log('req', req);
-  console.log('req.body', req.body);
+  
   // const { host_cert } = res.locals.user
   // console.log(host_cert);
 
@@ -98,11 +92,8 @@ router.post('/hosting', async (req, res) => {
   // } 
  
   const convenience = ['온수', '여분의 베개와 담요', 'TV', '유아용 식탁의자', '반려 동물 입실 가능', '주방', '기본 조리 도구', '식기류', '단층 주택', '자전거'];
-  // console.log(convenience);
   const distance = getRandomInt(1, 10000);
-  // console.log(distance);
   const availableDate = "07월 1일 ~ 8일"
-  // console.log(availableDate);
   const {home_name, category, address, image_url, introduce, price} = req.body;
   
   await Homes.create({home_name, category, address, image_url, introduce, price, convenience, distance, availableDate});
