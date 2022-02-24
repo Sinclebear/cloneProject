@@ -20,7 +20,7 @@ router.get("/homes", authmiddlewares, async (req, res) => {
 
   const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, latitude: 1, longitude: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
   // const homes = await Homes.find({"category": received_categori}, {category: 1, address: 1, geolocation: 1, image_url: 1, price: 1, distance: 1, availableDate: 1}).exec();
-  
+
   let isLike = new Array()
 
   if (res.locals.user){ // 로그인 정보가 있는 경우
@@ -57,12 +57,26 @@ router.get("/homes", authmiddlewares, async (req, res) => {
 // - 내가 위치한 곳 기준 거리 `distance` Number
 // - 숙박 가능 기간 `availableDate` String
 
-router.get("/homes/:homes_id", async (req, res) => {
+router.get("/homes/:homes_id", authmiddlewares, async (req, res) => {
   const { homes_id }  = req.params;
+  const user = res.locals.user;
   console.log(req.params)
 
-  // const homes = await Homes.find({"_id": homes_id}).exec();
   const homes = await Homes.findById(homes_id);
+  // const homes = await Homes.find({"_id": homes_id}).exec();
+  let isLike = new Array();
+  if (user){
+    isLike = await Likes.find({user_id:user.user_id}).exec();
+    // homes._id.toHexString()
+    
+    if (isLike.filter(e => e.home_id === homes_id).length > 0){ // 일치하는게 있는 경우
+      homes._doc.isLike = true;
+    } else {
+      homes._doc.isLike = false;
+    }
+  } else {
+    homes._doc.isLike = false;
+  }
   
   res.send({ homes });
   console.log('해당 숙소의 상세페이지를 보냈습니다.')
