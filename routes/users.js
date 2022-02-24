@@ -21,7 +21,6 @@ const postUsersSchemas = Joi.object({
 // 회원가입구현
 router.post('/signup', async (req, res) => {
   try {
-    console.log(req.body);
     const { user_id, user_nick, user_pwd, confirmPassword } = await postUsersSchemas.validateAsync(req.body);
     if (user_pwd !== confirmPassword) {
       res.send({
@@ -49,9 +48,7 @@ router.post('/signup', async (req, res) => {
     res.send({
       success: "회원가입이 완료되었습니다."
     });
-  } catch (err) {
-    // console.log(err.details[0].message)
-    // console.log(err);
+  } catch (err) {    
     res.send({
       fail: '요청한 형식이 올바르지 않습니다.',
     });
@@ -67,7 +64,6 @@ const postAuthSchemas = Joi.object({
 
 // 로그인 구현
 router.post('/login', async (req, res) => {
-  console.log(req.body);
   try {
     const { user_id, user_pwd } = await postAuthSchemas.validateAsync(req.body);
     const user = await User.findOne({ user_id, user_pwd }).exec();
@@ -83,7 +79,7 @@ router.post('/login', async (req, res) => {
       { user_id: user.user_id, user_nick: user.user_nick },
       process.env.JWT_SECRET
     );
-    // console.log("토큰 내부값은?", token);
+    
     res.send({
       result: true,
       msg: "로그인에 성공했습니다.",
@@ -92,8 +88,7 @@ router.post('/login', async (req, res) => {
         user_id: user.user_id,
         user_nick: user.user_nick
     }});
-  } catch (error) {
-    // console.log(error);
+  } catch (error) {    
     res.send({
       result: false,
       msg: '아이디 또는 비밀번호를 확인해주세요.',
@@ -124,16 +119,10 @@ router.get('/auth', authMiddlleware, async (req, res) => {
 
 });
 
-router.post('/signup/checkid', async (req, res) => {
-  // console.log("아이디 중복체크 api시작");
+router.post('/signup/checkid', async (req, res) => {  
   const input_id = req.body.user_id;
-  // console.log("input_id값은  ", input_id);
-
   const existUsers = await User.find({ user_id: input_id });
-
-  // console.log("existUser: ", existUsers[0].user_id);
-  // console.log("existUser: ", existUsers);
-
+  
   if (existUsers.length) {
     res.send({
       msg: '이미 가입된 아이디입니다.',
@@ -147,16 +136,10 @@ router.post('/signup/checkid', async (req, res) => {
 }
 );
 
-router.post('/signup/checknick', async (req, res) => {
-  // console.log("닉네임 중복체크 api시작");
+router.post('/signup/checknick', async (req, res) => {  
   const input_nick = req.body.user_nick;
-  // console.log("input_nick값은  ", input_nick);
-
   const existUsers = await User.find({ user_nick: input_nick });
-
-  // console.log("existUser: ", existUsers[0].user_nick);
-  // console.log("existUser: ", existUsers);
-
+  
   if (existUsers.length) {
     res.send({
       msg: '이미 사용중인 닉네임입니다.',
