@@ -161,7 +161,7 @@ https://www.youtube.com/watch?v=cnWW2IPvHQQ
   
   : 아래 프로젝트를 실행하여 수행. https://github.com/Sinclebear/pracPuppeteer
   
-  : 동작 원리는 아래 링크 참고. https://github.com/Sinclebear/TIL/blob/main/TIL/2022/02/2022_02_21-TIL.md
+  : 동작 원리는 링크 및 `상혁` 개인회고 참고. https://github.com/Sinclebear/TIL/blob/main/TIL/2022/02/2022_02_21-TIL.md
 
 <br/>
 <br/>
@@ -169,3 +169,4 @@ https://www.youtube.com/watch?v=cnWW2IPvHQQ
 
 9.개인회고 🤫
 ------------------
+진상혁 : https://velog.io/@sinclebear/%ED%95%AD%ED%95%B499-7%EC%A3%BC%EC%B0%A8-%ED%9A%8C%EA%B3%A0
