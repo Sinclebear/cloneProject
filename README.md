@@ -150,6 +150,19 @@ https://www.youtube.com/watch?v=cnWW2IPvHQQ
   
   : 지도에 마커를 각 데이터의 위도 경도로 넣었지만 무반응
 
+**Airbnb 숙소 정보 관련, 실제 데이터 뽑아와서 데이터베이스에 쌓기**
+
+  : 동작 가능한 URL 목록을 수동으로 찾아, 사진 및 숙소 정보의 스크래핑 도전.
+  
+  : `유연한 검색` 에서 URL 목록들을 파싱하여 상세페이지로 접근하는 것 또한 자동화 하려 하였으나, 실패.
+  
+    - Airbnb Plus, 슈퍼호스트 여부에 따라 세부 html 요소가 틀어지는 것을 확인. 
+    - Airbnb Plus 가 아니고, 슈퍼호스트인 사용자의 목록만 수동으로 입력함.
+  
+  : 아래 프로젝트를 실행하여 수행. https://github.com/Sinclebear/pracPuppeteer
+  
+  : 동작 원리는 아래 링크 참고. https://github.com/Sinclebear/TIL/blob/main/TIL/2022/02/2022_02_21-TIL.md
+
 <br/>
 <br/>
 
